@@ -1,0 +1,199 @@
+\section{算法与程序设计}\index{算法与程序设计}
+
+\begin{enumerate}
+%% ============= 1
+\item 答案：A。
+	\begin{enumerate}[label=\Alph*.]
+	\item 。
+	\item 。
+	\item 。
+	\item 。
+	\end{enumerate}
+
+%% ============= 2
+\item 答案：B。考查信息概念的理解，信息的特征。
+	\begin{enumerate}[label=\Alph*.]
+	\item 实验误差是测量值和真实值之间的偏差，不是虚假信息。
+	\item 正确。
+	\item 同一个信息对于不同的人价值可能不一样。
+	\item 信息是信号、消息中所包含的含义，必须依附与数字、文字、图形、图像等载体。
+	\end{enumerate}
+
+%% ============= 3
+\item 答案：D。考查信息概念的理解，信息的特征。
+	\begin{enumerate}[label=\Alph*.]
+	\item 互联网上只有已数字化的信息，没有数字化当然查不到。
+	\item 知识的获得是人利用自身已有的知识对信息进行加工，进而将新的信息纳入自己的知识结构的过程。检索到也只是看到，并不一定已内化成自己的知识。
+	\item 天才也要记单词啊。
+	\item 正确。
+	\end{enumerate}
+
+%% ============= 4
+\item 答案：A。
+	\begin{enumerate}[label=\Alph*.]
+	\item 。
+	\item 。
+	\item 。
+	\item 。
+	\end{enumerate}
+
+%% ============= 5
+\item 答案：C。
+	\begin{enumerate}[label=\Alph*.]
+	\item 若化成十进制计算：$10H=16D, 10B = 2D, 16D+2D=18D$。
+	\item $1AH + 2AH = 44H$，注意十六进制下$A + A$等于$14$。
+	\item 正确。
+	\item 若化成十六进制计算：$10D + 10B = AH + 2H = CH$，即十六进制的值是$C$。
+	\end{enumerate}
+
+%% ============= 6
+\item 答案：D。
+	\begin{enumerate}[label=\Alph*.]
+	\item 。
+	\item 。
+	\item 。
+	\item 。
+	\end{enumerate}
+
+%% ============= 7
+\item 答案：D。
+	\begin{enumerate}[label=\Alph*.]
+	\item 。
+	\item 。
+	\item 。
+	\item 。
+	\end{enumerate}
+
+%% ============= 8
+\item 答案：D。
+	\begin{enumerate}[label=\Alph*.]
+	\item 。
+	\item 。
+	\item 。
+	\item 。
+	\end{enumerate}
+
+%% ============= 9
+\item 答案：B。
+	\begin{enumerate}[label=\Alph*.]
+	\item 。
+	\item 。
+	\item 。
+	\item 。
+	\end{enumerate}
+
+%% ============= 10
+\item 答案：B。
+	\begin{enumerate}[label=\Alph*.]
+	\item 。
+	\item 。
+	\item 。
+	\item 。
+	\end{enumerate}
+
+%% ============= 11
+\item 答案：B。
+	\begin{enumerate}[label=\Alph*.]
+	\item 。
+	\item 。
+	\item 。
+	\item 。
+	\end{enumerate}
+
+%% ============= 12
+\item 答案：B。
+	\begin{enumerate}[label=\Alph*.]
+	\item 。
+	\item 。
+	\item 。
+	\item 。
+	\end{enumerate}
+
+
+%% ============= 13
+\item 答案：A。考查Python循环语句、双重循环程序的阅读理解。
+\columnratio{0.46}
+\begin{paracol}{2}
+\begin{lstlisting}[numbers=left]
+for i in range(1, 7):
+    for j in range(1, 7):
+        if j <= i:
+            print(j, end=" ")
+        else:
+            print("", end="")
+    print()
+\end{lstlisting}
+\switchcolumn
+固定第$1$行处的外层循环$i$的值为$1$时，内层循环$j$从$1$变化到$6$，对于每一个$j$，当$j \le i$时输出$j$的值，否则输出空值。因此当$i=1$时，输出$1$，然后换行；当$i=2$时，输出$1 \; 2$然后换行，当$i=3$时输出$1 \; 2 \; 3$然后换行……，答案选A。
+\end{paracol}
+
+%% ============= 14
+\item 答案：
+
+%% ============= 15
+\item 答案：
+
+%% ============= 16
+\item 答案：
+
+%% ============= 17
+\item 答案：
+
+%% ============= 18
+\item 答案：
+
+%% ============= 19
+\item 答案：
+
+%% ============= 20
+\item 考查应用Python程序解决实际问题的能力。考查字符串的处理与应用。
+	\begin{enumerate}[label=$(\arabic*)$]
+	\item 考查题意的理解，这是理解题目情景的关键。“we put the bed in the bedroom”中有两处“bed”，会被替换两次。	
+	\item 阅读与推导过程：
+\setcounter{qnumber}{1}
+\begin{lstlisting}[numbers=left]
+text = input("输入原文字符串: ")
+key = input("输入要查找的字符串: ")
+rs = input("输入替换字符串:")
+result = "";  count = 0;  i = 0;  n = len(text)
+while i < n - len(key) + 1:
+ s = text[`\clozeblank{2}`]
+ if key == s:
+     result += rs
+     count += 1
+     i += len(key)
+ else:
+     result += text[i]
+     i += 1
+`\clozeblank{2}`
+if count > 0:
+ print("替换的次数: ", count)
+ print("替换后的结果: ", result)
+else:
+ print("要查找的内容不存在")
+\end{lstlisting}
+		\begin{enumerate}[label=$(\alph*)$]
+		\item 第5行的循环和$n$有关，而$n$是原文的长度，因此第5行的循环是在扫描原文的每个字符。
+		\item 从$i$的变化上看，当第8行两个字符相等时，$i$往后移动与key一样的长度；当两个字符不等时，$i$往后移动1个字符长度，所以$i$是指示了原文text中待比较字符串的索引位置信息。
+		\item 循环中第7行判定了key是否与$s$相等，那么$s$就需要从原文中截取一个字符串，再与key作相等比较，因此第①空应该填写原文字符串的切片，切片的起始值是当前$i$的值，切片的长度应该与key的长度相等，于是第①空答案是\lstinline|i:i+len(key)|。
+		\item 在解题时一定要用样例带入后阅读，比如原文\lstinline|text="Abedrbedom"|，待替换字符串\lstinline|key="bed"|，那么当$i=1,5$时分别找到两处“bed”，如下图所示。当$i$指向8号位置时，剩余字符串已不足3位（即待查找值key的长度），也就无需继续循环，这也是第5行while循环条件是\lstinline|i < n - len(key) + 1|而不是\lstinline|i < n|的原因。但是这样带来的后果是剩余的字符串无法原样连接到result中取，如下图中的最后两个字符“om”。因此需要在循环结束时，第14处将剩余字符串连接到最终结果上。第②空的答案是\lstinline|result += text[i:]|，其中切片的终止端点写明$n$亦可。
+\begin{lstlisting}
+0 1 2 3 4 5 6 7 8 9
+A b e d r b e d o m
+  ↑
+  i=1时找到第一处，字符串替换后，i=i+3，指向4号位置
+----------------------------------------------------------------------
+0 1 2 3 4 5 6 7 8 9
+A b e d r b e d o m
+          ↑
+          i=5时找到第二处，字符串替换后，i=i+3，指向8号位置
+\end{lstlisting}
+		\end{enumerate}
+	
+
+	\end{enumerate}
+
+\end{enumerate}
+
+
+
