@@ -11,7 +11,7 @@
 	\end{enumerate}
 
 %% ============= 2
-\item 答案：B。考查信息概念的理解，信息的特征。
+\item 答案：A。
 	\begin{enumerate}[label=\Alph*.]
 	\item 实验误差是测量值和真实值之间的偏差，不是虚假信息。
 	\item 正确。
@@ -20,7 +20,7 @@
 	\end{enumerate}
 
 %% ============= 3
-\item 答案：D。考查信息概念的理解，信息的特征。
+\item 答案：D。
 	\begin{enumerate}[label=\Alph*.]
 	\item 互联网上只有已数字化的信息，没有数字化当然查不到。
 	\item 知识的获得是人利用自身已有的知识对信息进行加工，进而将新的信息纳入自己的知识结构的过程。检索到也只是看到，并不一定已内化成自己的知识。
@@ -29,7 +29,7 @@
 	\end{enumerate}
 
 %% ============= 4
-\item 答案：A。
+\item 答案：C。
 	\begin{enumerate}[label=\Alph*.]
 	\item 。
 	\item 。
@@ -38,7 +38,7 @@
 	\end{enumerate}
 
 %% ============= 5
-\item 答案：C。
+\item 答案：B。
 	\begin{enumerate}[label=\Alph*.]
 	\item 若化成十进制计算：$10H=16D, 10B = 2D, 16D+2D=18D$。
 	\item $1AH + 2AH = 44H$，注意十六进制下$A + A$等于$14$。
@@ -47,7 +47,7 @@
 	\end{enumerate}
 
 %% ============= 6
-\item 答案：D。
+\item 答案：C。
 	\begin{enumerate}[label=\Alph*.]
 	\item 。
 	\item 。
@@ -65,7 +65,7 @@
 	\end{enumerate}
 
 %% ============= 8
-\item 答案：D。
+\item 答案：A。
 	\begin{enumerate}[label=\Alph*.]
 	\item 。
 	\item 。
@@ -74,7 +74,7 @@
 	\end{enumerate}
 
 %% ============= 9
-\item 答案：B。
+\item 答案：D。
 	\begin{enumerate}[label=\Alph*.]
 	\item 。
 	\item 。
@@ -83,7 +83,7 @@
 	\end{enumerate}
 
 %% ============= 10
-\item 答案：B。
+\item 答案：C。
 	\begin{enumerate}[label=\Alph*.]
 	\item 。
 	\item 。
@@ -182,16 +182,192 @@ else:
 A b e d r b e d o m
   ↑
   i=1时找到第一处，字符串替换后，i=i+3，指向4号位置
-----------------------------------------------------------------------
+----------------------------------------------------------------
 0 1 2 3 4 5 6 7 8 9
 A b e d r b e d o m
           ↑
           i=5时找到第二处，字符串替换后，i=i+3，指向8号位置
 \end{lstlisting}
 		\end{enumerate}
-	
-
 	\end{enumerate}
+
+%% ============= 21
+\item 考查应用Python程序解决实际问题的能力。考查字符串的处理与应用。
+	\begin{enumerate}[label=$(\arabic*)$]
+	\item “Good”中的四个字母来自键盘不同的两行按键，故答案是No。
+	\item 阅读与推导过程：
+\setcounter{qnumber}{1}
+\begin{lstlisting}[numbers=left]
+def to_lower(ch):       # 转小写字母
+    if ch >= "A" and ch <= "Z":
+        return chr(ord(ch) + 32)
+    else:
+        `\clozeblank{2}`
+line_1 = "qwertyuiop"   # 键盘第一行字母
+line_2 = "asdfghjkl"    # 键盘第二行字母
+line_3 = "zxcvbnm"      # 键盘第三行字母
+char = input()
+c1 = 0
+c2 = 0
+c3 = 0
+n = len(char)
+for ch in char:
+    ch = `\clozeblank{2}`
+    if ch in line_1:
+        c1 += 1
+    elif ch in line_2:
+        c2 += 2
+    elif ch in line_3:
+        c3 += 3
+if c1 == n or c2 == n * 2 or c3 == n * 3:
+    print("yes")
+else:
+    print("no")
+\end{lstlisting}
+	\begin{enumerate}[label=$(\alph*)$]
+	\item 第①空容易填：第2行if语句判定了大写字母，第3行将其转成小写字母，因此非大写字母时直接返回ch，答案是\lstinline|return ch|。
+	\item 第14行循环语句遍历提取了输入字符串char中的每个字符，在第16、18、20行分别判定了是否是键盘上哪一行的字母：第一行则$c1$加1，第二行则$c2$加2，第三行则$c3$加3，由此可以断定，在第②空处需要将字母规范化——统一转成小写字母，这就需要调用\lstinline|to_lower()|函数，因此答案是\lstinline|to_lower(ch)|，参数是当前扫描到的字符ch。
+	\item 对于第22行条件的理解：如果输入字符char都来自键盘第一行，那么$c1$的值与char字符串长度相等，因此$c1$每次都加1；同理，如果都来自第二行，则$c2$的值是char字符串长度的两倍，因为$c2$每次都加2；$c3$的值亦同理。
+	\end{enumerate}
+	\item \lstinline|c1 += 1|的含义是第一行的字符数量增加1
+	\end{enumerate}
+
+%% ============= 22
+\item 考查应用Python程序解决实际问题的能力。考查随机数函数、枚举算法。
+	\begin{enumerate}[label=$(\alph*)$]
+\setcounter{qnumber}{1}
+\begin{lstlisting}[numbers=left]
+import random
+n = int(input("请输入要产生的英文字符串长度: "))
+s = ""
+for i in range(n):
+	# randint(1,58):随机生成一个[1,58]范围内整数，字母A的ASCII码值为65
+    s += chr(64 + random.randint(1, 58))  
+print(s)
+ans = input("请按样例输入: ")
+c = 0
+for i in range(n):
+    if `\clozeblank{2}`:
+        c += 1
+p = `\clozeblank{2}`
+print("正确数量: ", c, "，正确率为: ", p, "%")
+\end{lstlisting}
+	\item 判断两个字符串有多少个字符相同，可以用枚举算法：遍历每个字符串的每一位，分别判定是否相等。
+	\item 由第10行的for循环语句知，$i$取遍了$[0,-1]$的每个数，这相当于字符串的索引值。而第11行处的条件成立时，变量$c$的值加1，又由第14行的输出可知$c$是正确单词的个数。因此第①空是判定两个字母是否相等，原始字符串是s，用户输入字符串是ans，因此答案是\lstinline|s[i] == ans[i]|。
+	\item 变量$p$是什么？同样可以看14行的输出语句——$p$是正确率百分比。因此$p$的计算方式是正确个数除上总个数，答案可以是\lstinline|c / n * 100|。题意没有说如何保留小数，也没有输出示例，因此这个答案也可以。参考答案是\lstinline|int(c / n * 100 + 0.5)|，它的功能是四舍五入保留整数。
+	\end{enumerate}
+
+
+%% ============= 23
+\item 考查应用Python程序解决实际问题的能力。考查进制转换解析算法、字符串应用。
+	\begin{enumerate}[label=$(\alph*)$]
+\setcounter{qnumber}{1}
+\begin{lstlisting}[numbers=left]
+def conv(s):
+    ans = ""
+    if s > "9":
+        `\clozeblank{2}`
+    else:
+        s = int(s)
+    while s > 0:
+        k = s % 2
+        s //= 2
+        `\clozeblank{2}`
+    for i in range(4 - len(ans)):
+        ans = "0" + ans
+    return ans
+s = "2A08:CCD6:0088:108A:0011:0002:202F:AA05"
+ans = ""
+flag = False
+for i in s:
+    if i == ":":
+        `\clozeblank{2}`
+        ans += i
+    elif i != "0" or flag == True :
+        `\clozeblank{2}`
+        flag = True
+print("原IPv6地址为:", s)
+print("去前导零后:", ans)
+\end{lstlisting}
+	\item 当自定义函数比较复杂时，可以从主程序开始阅读。那么从第14行开始阅读程序：第17行遍历取出了字符串$s$中的每个字符，$s$是个十进制模式的IPv6地址字符串，依题意需要将它转成二进制模式，可以猜测本题处理思路就是逐个取出$s$的每个字符并转换成二进制并输出结果。
+	\item 第18行是$i$的值是冒号的情况，这意味着冒号前面一段IPv6已转换完，$i$中的值直接连接到最后结果字符串ans变量的后面，ans变量的功能也还是从最后一行的输出语句中得到。但是第③空还不知道填什么。
+	\item 第21行是说当$i$不是0，或者flag的值是True时执行第22、23行程序。容易相当，当$i$非0时必然要转成二进制格式，因此这里需要调用前面的conv()函数，调用结果应该是$i$字符对应的二进制串，同样要把二进制串连接到ans变量后面，于是第④空的答案应该是\lstinline|ans += conv(i)|，其中$i$就是当前需要转换成二进制的十六进制字符。
+	\item 从第21行的elif判定结果看，当$i \neq 0$时，flag的结果会变成True，一个隐含的情况是当$i=0$但flag值是True的时候，也会执行21、22两行代码，即也会将该“0”转成二进制串。结合题意“前导零可以省略”可知，非前导（中间的）零需要转换。由此断定flag的值为True表示当前有非前导的零（需要转换）；flag的值为False时，若出现零则是前导的零。再结合第16行f初值False可知，这样的推论是合适的。
+	\item 因此，第③空是出现冒号后，下一次得到的字符串若是零，该零必然是前导的零，于是这里填\lstinline|flag = False|。
+	\item 转到conv()函数，可以断定参数变量$s$是待转换的十六进制字符串，这在第8、9两行的循环模2取余也可以得到验证（转二进制的方法就是除二取余法）。
+	\item 但是$s$是十六进制，除二取余之前需要转成十进制。阅读第$1 \sim 6$行的if语句可以看出，若$s \le 9$，则直接取整（此时十六进制值与十进制相等）；否则要把“A”转成10，把“B”转成11……把“F”转成15。把字母转整数可以用ASCII码函数ord()，本题答案是\lstinline|ord(s) - 65 + 10|。
+	\item 第②空是将余数$k$连接成二进制串的语句，注意最先除二取余得到的余数是最低位，最后得到的余数是最高位，因此本题答案需要将$k$转成字符串后连接到答案变量ans的前面。本题填\lstinline|ans = str(k) + ans|。	
+	\end{enumerate}
+
+
+%% ============= 24
+\item 考查应用Python程序解决实际问题的能力，考查列表的应用。
+	\begin{enumerate}[label=$(\alph*)$]
+\setcounter{qnumber}{1}
+\begin{lstlisting}[numbers=left]
+import random as rd
+data = [180,283,385,170,276,384,180,285,380,190,295,390,170,272,372]
+s = [0, 0, 0]                   # 存储3个作品的得分
+ans = []                        # 存储并列最高平均分的作品号
+maxb = 0
+for i in range(len(data)):
+    zp = `\clozeblank{2}`   # 分离出作品编号
+    fs = data[i] % 100
+    `\clozeblank{2}`        # 累加当前作品的得分
+for j in range(3):
+    `\clozeblank{2}`
+    print("作品", j+1, "平均分为", s[j])
+    if s[j] > maxb:
+        maxb = s[j]
+for z in range(3):              # 查找并列最高平均分
+    if `\clozeblank{2}`:
+        ans.append(z + 1)       # 将数据添加到列表ans尾部
+print("平均分最高作品号是: ", ans)
+\end{lstlisting}
+	\item 由第6行的循环范围知，该for循环遍历了data列表的每个元素，$i$是其索引值。
+	\item 分离字符串可以用切片，分离整数的各个数位可以用对十取余数，或者整除十。从循环中的第8行知，\lstinline|data[i] % 100|就是该整数的十位和各位上的数，即第$i$号数据中的得分值。第②空，分离百位数可以模仿这写\lstinline|data[i] // 100|，除以100之后的整数部分就是作品号。
+	\item 按注释，第②空应是累加fs的值到列表$s$中的某个位置上，这个位置应该与作品编号有关。注意到第7行分离出来的作品编号都是从“1”开始数的，而$s$的索引值是从“0”开始计的，因此需要修正，答案是\lstinline|s[zp-1] += fs|。
+	\item 因为有3个作品，因此第10行的3次循环应该遍历了每个作品，并输出了相应的平均分。也就是说，第12行输出的s[j]是第$j$号作品的平均分，而之前$s$中保存的是每个作品的总分，因此第③空需要求平均分，答案是\lstinline|s[j] /= 5|。
+	\item 第13行是打擂算法：若当前平均分s[j]大于“擂台”上的数maxb，则让s[j]留在擂台上。所以maxb保存的是最大值。
+	\item 第④空的条件成立时将$z$存入列表ans，而由最后一行的输出结合输出图示看，列表ans中存放了所有得分都是最高的作品编号。第④空就得填写某个作品均值与maxb相等时执行插入操作，答案是\lstinline|s[z] == maxb|。
+	\end{enumerate}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 \end{enumerate}
 

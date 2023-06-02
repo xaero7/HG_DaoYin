@@ -20,7 +20,7 @@
 \usetikzlibrary{calc,shadows,hobby,intersections, decorations.markings, decorations.pathreplacing,spy,arrows,shapes,fadings,trees,mindmap,patterns,shapes.arrows,shapes.symbols,tikzmark,shapes.geometric,graphs, quotes, angles,decorations.pathmorphing,through,shadings,backgrounds,positioning,fit,arrows.meta,shapes.misc,decorations.shapes}
 \RequirePackage{pgfplots} %画图 %%页面样式设计核心包 %提供\pgfonlayer命令以及下列图层指令
 \pgfplotsset{compat=1.18}
-\usepackage{stys/Titlepage}
+\usepackage{stys/titlepage}
 \usepackage{stys/bottompage}
 \usepackage{amssymb,amsfonts}
 \usepackage{makeidx}
@@ -66,6 +66,15 @@ citecolor = purple,		%%修改此处为你想要的颜色
 \usepackage{zhlipsum}
 \setmainfont{XITS}
 \setmonofont{Consolas} % Courier New, Ubuntu Mono, Palatino Linotype
+
+\setCJKmainfont[ItalicFont={FZJPKai-Z03S},BoldFont={Source Han Serif Heavy}]{Source Han Serif SC ExtraLight} %% FZJSong-Z01S, FZShuSong_GB18030-Z01 Source Han Serif SC
+\setCJKmonofont{FZJPKai-Z03S}
+\setCJKsansfont[BoldFont={FZJPKai-Z03S}]{FZXiHei I-Z08} % 细黑、黑体 FZJPKai-Z03S，STKaiti
+\setCJKfamilyfont{heavysong}{Source Han Serif SC Heavy} % 思源heavy
+\setCJKfamilyfont{zhkai}{FZJPKai-Z03S} % 楷体
+\def\kaishu{\CJKfamily{zhkai}}
+\def\cusong{\CJKfamily{heavysong}}
+
 \usepackage[left=2cm,right=2cm,top=.6cm,bottom=2.2cm]{geometry}
 \usepackage{xpatch}%修正章节编号
 \usepackage[automark]{scrlayer-scrpage}%页面设置宏包,隶属于koma-script文档类
@@ -932,6 +941,7 @@ sorting=nty
 
 \newcounter{qnumber}
 \newcommand{\clozeblank}[1]{\underline{\hspace{#1cm}\textcircled{\rm\small\theqnumber}\hspace{#1cm}}\stepcounter{qnumber}}
+\setlength\columnsep{0cm}
 
 
 %%%%%%%%%%%%%%% 计数器知识 %%%%%%%%%%%%%%%%%%%%%%
