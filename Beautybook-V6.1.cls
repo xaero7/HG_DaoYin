@@ -68,6 +68,7 @@ citecolor = purple,		%%修改此处为你想要的颜色
 \setmonofont{Consolas} % Courier New, Ubuntu Mono, Palatino Linotype
 
 \setCJKmainfont[ItalicFont={FZJPKai-Z03S},BoldFont={Source Han Serif Heavy}]{Source Han Serif SC ExtraLight} %% FZJSong-Z01S, FZShuSong_GB18030-Z01 Source Han Serif SC
+%\setCJKmainfont[ItalicFont={FZJPKai-Z03S}]{Source Han Serif SC ExtraLight} %% FZJSong-Z01S, FZShuSong_GB18030-Z01 Source Han Serif SC
 \setCJKmonofont{FZJPKai-Z03S}
 \setCJKsansfont[BoldFont={FZJPKai-Z03S}]{FZXiHei I-Z08} % 细黑、黑体 FZJPKai-Z03S，STKaiti
 \setCJKfamilyfont{heavysong}{Source Han Serif SC Heavy} % 思源heavy

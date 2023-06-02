@@ -94,21 +94,86 @@ print(sc)											# 分组后的数据
 	\end{enumerate}
 
 %% ============= 10
-\item 答案：B。
-	\begin{enumerate}[label=\Alph*.]
-	\item 。
-	\item 。
-	\item 。
-	\item 。
+\item 考查pandas数据处理与应用。
+	\begin{enumerate}[label=$(\arabic*)$]
+	\item 考查数据处理的实际用途，帮助理解题目情景。
+	\item 考查pandas数据格式的识别。
+\setcounter{qnumber}{1}
+\begin{lstlisting}[numbers=left]
+def s_review(c):    
+    for r in range(df.shape[0]):            # 批阅1个单选题
+        if df.at[r, qnum[c]] == `\clozeblank{2}`:
+            tmp = 3
+            df.at[r, score[c-2]] = tmp
+            df.at[r, score[10]] += tmp      # 计算总分，存入"sum"列
+qnum = df.columns
+sans = "BDCABDDBCB"                         # 本次作业的标准答案
+score=["sc1","sc2","sc3","sc4","sc5","sc6","sc7","sc8","sc9","sc10","sum"]
+for c in score:
+    df[c] = 0
+for c in range(2,12):                       # 逐题批阅
+    `\clozeblank{2}`
+print(df)
+df.to_excel("客观题成绩.xlsx", index=False)  # 保存结果
+\end{lstlisting}
+	\item 解题过程：
+		\begin{enumerate}[label=$(\alph*)$]
+		\item 从第7行主程序开始阅读，对pandas程序阅读，一定要直到变量保存的数据是什么？数据的结构是怎样的？
+		\item 第7行qnum保存了数据对象df的所有列名称，即\lstinline|["name", "snum", "ans1", "ans2", ..., "ans10"]|。第10行的循环，结合第9行score列表中的数据可以知道第11行在数据对象df中新增了很多数据列，列名称分别是“sc1”、“sc2”、“sc3”、……、“sum”，每列的值都是0。这也是pandas的特点，数据列直接可以参与算术运算、关系运算和赋值操作，每种操作都可以将该列的所有行都进行相应处理。
+		\item 第②空处所进行的循环是逐题批阅。原始表格数据中一题就是一列数据，列序号是$2 \sim 12$，刚好能对上这里的循环范围。因此，第12行的循环变量$c$相当于列序号——不过，pandas需要的是列名称，这就需要qnum中对应的列名称来引用原始数据了。这里需要调用第一行的s\_review()函数。
+		\item 阅读s\_review()函数。第2行df.shape可以返回数据对象df的维度“形状”：行数（df.shape[0]）和列数（df.shape[1]），因此$r$就是行索引号。由\lstinline|df.at[r, qnum[c]]|操作可知qnum[c]必然是列名称，结合前面的分析可以知道$c$必然是列序号。由于列表qnum中索引$2$号的列名称才是第一题名称“ans1”，因此$c$期望的值也应该从$2$开始。那么第②空的函数调用就好办了：函数名已知的，参数作用也推知了，所以答案应该是\lstinline|s_revieww(c)|，就让$c$的值从2开始传递、调用函数。另外从s\_review()函数的结构上看，它有return语句返回值，所以这空也无需考虑赋值——直接调用即可。
+		\item 再回到第3行程序，\lstinline|df.at[r, qnum[c]]|取得了$c$列每个人填写的答案，它们需要与标准答案做比较，标准答案保存再sans字符串中，它的索引号是从0开始的，所以第①空的答案是\lstinline|sans[c-2]|。
+		\item 第5行的程序是将该行（第$r$行）对应的得分列赋值为tmp分分值（如“ans1”列对应的分值是“sc1”列）。第6行的程序是将该分值累加到它的总分中去（即“sum”列，它的值是10个选择题的得分累加而来）。
+		\end{enumerate}
 	\end{enumerate}
 
+
 %% ============= 11
-\item 考查信息编码、容量计算。
+\item 考查文本数据处理、分词、字符串统计与字典的应用。
 	\begin{enumerate}[label=$(\arabic*)$]
-	\item {\kaishu 视频容量=每帧图像容量$\times$帧频，每帧图像容量=像素点数$\times$量化位数}。依题意，单张图像容量是：$\dfrac{1280 \times 720 \times 24}{8 \times 1024 \times 1024} \approx 2.64$MB。因此视频容量是：$2.64 \times 5 \times 60 \times 25 = 19800$MB。压缩比至少是$39.6:1$才能压缩到500MB以内。答案是$40:1$。
-	\item 加入数据不会改变原来的压缩比，相当于不会改变原先的压缩编码方式（真因为如此，加入音频后的视频容量增加，压缩比不变的话，压缩之后的作品容量也增加，势必会超过500MB，因此必须重新设定新的、更大的压缩比才能压缩到500MB以内，这应该是本题想考查的一个实际应用情景）。
-	\item 压缩会使画面不清晰，原因压缩比太大，或者压缩算法太差。改进办法是可以换一种压缩算法（换一个压缩软件），或者保证内容完整的前提下，减少画面尺寸、缩短时长等。
+\setcounter{qnumber}{1}
+\begin{lstlisting}[numbers=left]
+import jieba                                     # 导入jieba模块
+import pandas as pd
+text = open("news.txt", encoding="utf-8").read() # 打开文本文件
+words = jieba.lcut(text, cut_all=False)          # 分词
+counts = {}
+for name in words:
+    if len(name) != 1 and not ("a" < name[0] < "z") and not ("0" < name[0] < "9"):
+        if name in counts:
+            counts[name] += 1                    # 词语已出现过
+        else:
+            counts[name] = 1                     # 词语第一次出现
+# 字典转化为DataFrame格式存储
+df = pd.DataFrame(list(counts.items()), columns=["词", "次数"])
+df = df.sort_values("次数", ascending=False)     # 按“次数”降序排序
+print(df)
+\end{lstlisting}
+	\item jieba是目前常用的分词模块，它是一个基于词典分词的模块。模块导入后，程序再第3行通过python的内置open()函数打开了文本文件，read()函数可以读取文件中的所有数据。第4行调用了jieba的lcut()函数进行分词，函数名中的“l”表示分词结果数据是一个列表（即list，这里了解即可，无需记忆），函数的cut\_all参数设定为False表示是精准分词，不会分隔“词中词”，当该参数设定为True时表示全模式分词，会分隔所有词。如“中华人民共和国”，False模式下结果是一个词\lstinline|["中华人民共和国"]|，True模式下会有多个词\lstinline|["中华", "人民", "共和国", "中华人民共和国"]|。对于words列表中的每个词，第7行程序过滤掉了单字、字母开头的、数字开头的字符串，因此答案选C。
+	\item 本小题考查jieba分词的规则特点，因为它是用现有的词典进行分词的，因此想要添加一个新词时，只需在分词前添加该词再进行分词即可。具体可以通过\lstinline|jieba.add_word( "公益活动")|来添加该词。
+	\item 第8行程序先判定某个单词name是否在字典counts的键名中出现过，如果出现过，则直接根据该键名取出其键值，然后加1后仍然存放在该键名上。else分支就是该键名第一次出现，因此该键值初始为1，答案是\lstinline|counts[name] = 1|。
 	\end{enumerate}
+
+
+%% ============= 12
+\item 考查文本数据处理、分词、字符串统计与字典的应用。
+	\begin{enumerate}[label=$(\arabic*)$]
+\setcounter{qnumber}{1}
+\begin{lstlisting}[numbers=left]
+
+\end{lstlisting}
+	\item 
+	\end{enumerate}
+
+
+
+
+
+
+
+
+
+
 
 \end{enumerate}
 
