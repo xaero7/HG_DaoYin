@@ -205,7 +205,7 @@ plt.title("当日上客地点分布图")
 `\clozeblank{2}`   # 绘制图表分析当日搭载乘客的上客地点分布
 plt.show()
 \end{lstlisting}
-	\item round(sum(ty) / count)
+	\item plt数据可视化最关键的三要素是：图表类型、横纵轴数据。分析左图可以确定是柱形图，那么使用\lstinline|plt.bar()|函数。纵轴数据从纵坐标的值与图表标题上可以看出是上客时长，数据应该是列表ty中的值。这里的横轴数据不是很明显，图中也未给出坐标轴标签，不过看数据还是可以知道就是一些序号，结合第一行的程序，还是可以确定横轴数据就是列表tx中的值，于是答案是\lstinline|plt.bar(tx, ty)|。同样的方法可以确定第②空的答案是\lstinline|plt.scatter(px, py)|。
 	\end{enumerate}
 
 
