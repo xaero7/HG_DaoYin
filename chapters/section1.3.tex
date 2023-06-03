@@ -151,18 +151,61 @@ print(df)
 \end{lstlisting}
 	\item jieba是目前常用的分词模块，它是一个基于词典分词的模块。模块导入后，程序再第3行通过python的内置open()函数打开了文本文件，read()函数可以读取文件中的所有数据。第4行调用了jieba的lcut()函数进行分词，函数名中的“l”表示分词结果数据是一个列表（即list，这里了解即可，无需记忆），函数的cut\_all参数设定为False表示是精准分词，不会分隔“词中词”，当该参数设定为True时表示全模式分词，会分隔所有词。如“中华人民共和国”，False模式下结果是一个词\lstinline|["中华人民共和国"]|，True模式下会有多个词\lstinline|["中华", "人民", "共和国", "中华人民共和国"]|。对于words列表中的每个词，第7行程序过滤掉了单字、字母开头的、数字开头的字符串，因此答案选C。
 	\item 本小题考查jieba分词的规则特点，因为它是用现有的词典进行分词的，因此想要添加一个新词时，只需在分词前添加该词再进行分词即可。具体可以通过\lstinline|jieba.add_word( "公益活动")|来添加该词。
-	\item 第8行程序先判定某个单词name是否在字典counts的键名中出现过，如果出现过，则直接根据该键名取出其键值，然后加1后仍然存放在该键名上。else分支就是该键名第一次出现，因此该键值初始为1，答案是\lstinline|counts[name] = 1|。
+	\item 第8行程序先判定某个单词name是否在字典counts的键名中出现过，如果出现过，则直接根据该键名取出其键值，然后加1后仍然存放在该键名上。else分支就是该键名第一次出现，该键值初始为1，答案是\lstinline|counts[name] = 1|。
 	\end{enumerate}
 
 
 %% ============= 12
-\item 考查文本数据处理、分词、字符串统计与字典的应用。
+\item 考查pandas数据处理与应用，matplotlib数据可视化。给出三行数据示例如下：
+
 	\begin{enumerate}[label=$(\arabic*)$]
 \setcounter{qnumber}{1}
-\begin{lstlisting}[numbers=left]
-
+\begin{lstlisting}
+109, 2007-02-20 00:07:10, 121.443100, 31.273000,  0, 45, 0
+109, 2007-02-20 00:08:06, 121.447600, 31.272000,  6, 22, 1
+109, 2007-02-20 00:09:07, 121.452500, 31.271000, 46, 67, 1
 \end{lstlisting}
-	\item 
+\begin{lstlisting}[numbers=left]
+import pandas as pd
+import matplotlib.pyplot as plt             # 导入matplotlib模块
+plt.rcParams["font.sans-serif"] = ["KaiTi"] # 图表中中文以楷体显示
+df = pd.read_csv("Taxi_105.txt", sep=",")
+df.columns = ["xh", "sk", "jd", "wd", "sd", "jj", "zkzt"]
+df = `\underline{\hspace*{4cm}}`
+\end{lstlisting}
+	\item 第3行程序设置字体以便显示中文，这行代码了解即可。第4行程序读取了csv文件并转成DataFrame数据对象保存再df中。由于原始数据中没有标题行，程序的第5行指定了数据各列的标题。从处理结果上看，“速度”、“夹角”列都可以删除，因此删除这两列数据都可以。drop()函数删除列的语法是\lstinline|df.drop("jj", axis=1)|，其中axis参数为1指明了删除的是列。
+%\setcounter{qnumber}{1}
+\begin{lstlisting}[numbers=left, firstnumber=7]
+def pickup(rid):
+    # 计算每次上客的停车时长，代码略
+    return t, id1 	# 返回停车时长、上客停车时的数据行索引
+# 计算该出租车当日载客次数
+ty = []; px = []; py = []; count = 0
+n = len(df)
+for row in range(n-1):
+    if df.at[row, "zkzt"]==0 and df.at[row+1,"zkzt"]==1: 	# 上客
+        pt, id = pickup(row)
+        ty.append(pt) 
+        `\clozeblank{2}`
+        px.append(df.at[id, "jd"])
+        py.append(df.at[id, "wd"])        
+print("该出租车当日载客次数为:", count)
+# 上客平均时长四舍五入取整
+print("上客平均时长、最大及最小时长(单位:秒):", `\clozeblank{2}`, max(ty), min(ty))
+\end{lstlisting}
+	\item 第12行程序中$n$取得了df数据对象的行数，第13行循环了$n-1$次，可以确定row就是数据对象df的行索引值。第14行的判定是说当前行载客状态是空，但是下一行的载客状态是有客则表示当前正在上客。由pickup()函数的注释和return语句可知，第15行中的变量pt保存了函数的第一个返回值停车时长，id保存了第二个值上客时的数据行索引。因此下面几行程序也容易理解：列表变量ty保存了各次上客前停车时长，列表px保存了各次上车时的经度值，py保存了各次上车时的纬度值。第①空似乎不需要填什么程序。不过从循环结束后的第20行程序上看，这里输出了count的值，为载客次数，再考查它的初值是零，因此需要在循环内进行次数统计，于是第①空答案是\lstinline|count += 1|。第②空是输出上客平均时长，上车次数是count，这就需要算出上车总时长（接到各个客人时需要空车停留、闲逛的总时长）。这里已经将各次上车时间保存在列表ty中，求和只需调用sum()函数即可，四舍五入保留整数可以使用round()函数，于是答案是\lstinline|round(suum(ty)/count)|。注意很多同学的答案写成了mean(ty)。在python内置函数中，只有求和sum()函数，求最值max()/min()函数，没有求平均值mean()函数。在pandas中，数据框对象有mean()方法，但它的格式是df.mean()，而且会求出df每一列的平均值，结果不是一个整数而是一个Series。这里不能用该函数。
+\setcounter{qnumber}{1}
+\begin{lstlisting}[numbers=left]
+tx = range(count)
+plt.figure(1)
+plt.title("当日上客时长对比图(单位:秒)")
+`\clozeblank{2}`   # 绘制图表分析当日搭载乘客的上客时长
+plt.figure(2)
+plt.title("当日上客地点分布图")
+`\clozeblank{2}`   # 绘制图表分析当日搭载乘客的上客地点分布
+plt.show()
+\end{lstlisting}
+	\item round(sum(ty) / count)
 	\end{enumerate}
 
 
