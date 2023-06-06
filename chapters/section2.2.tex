@@ -1,0 +1,99 @@
+\section{信息系统的支撑技术}\index{支撑技术}
+
+\begin{enumerate}
+%% ============= 1
+\item 答案：A。选项D是存储器的分类，选项C是内存的分类。
+
+%% ============= 2
+\item 答案：C。就是上一题选项C所描述的内容。
+
+%% ============= 3
+\item 答案：A。频率找$Hz$，CPU的主频一般是GHz。
+
+%% ============= 4
+\item 答案：C。选项A：内存是4GB，其中能用的只有3.46GB（另外0.54GB可能共享给显存使用了）。选项B：Windows 10就是一个系统软件。选项C：你看到这张截图说明有显示器，显示器就是输出设备。选项D：图上写着没有触控输入。
+
+%% ============= 5
+\item 答案：B。选项AC这两个只能在苹果操作系统macOS上安装。由图知，这个系统是在64位CPU上安装了32位的操作系统，所以其他应用软件都只能安装32位及以下的软件。64位相当于64个车道，同时能处理64位的二进制。不过它只安装了32位的操作系统，相当于最多同时只有32辆车在这车道上跑，因此它能安装的应用软件也只能是32位及以下的软件。
+
+%% ============= 6
+\item 答案：D。选项B：计算机与移动终端的硬件架构、原理都类似，但是操作系统不一样，所以应用软件大部分都无法通用。
+
+%% ============= 7
+\item 答案：B。显然你电脑的配置需要大于等于应用软件的配置才行，比较来看，小陈电脑显卡的显存才1GB，应用软件要求2GB，无法满足。
+
+%% ============= 8
+\item 答案：D。
+
+%% ============= 9
+\item 答案：C。
+
+%% ============= 10
+\item 答案：B。
+
+%% ============= 11
+\item 答案：D。考查网络的组成。选项A：教材P76提及“（计算机系统的）服务器负责数据处理和网络控制，是网络的主要资源”。应该说，网络组成的三大要素：计算机系统、数据通信系统、网络软件和网络协议都重要😀。选项B：数据通信系统包括传输介质和网络互联设备。选项C：网络软件包括服务器和客户端的网络操作系统、通信软件、管理和服务软件。
+
+%% ============= 12
+\item 答案：A。选项D：WWW是万维网的Web服务
+
+%% ============= 13
+\item 答案：A。
+
+%% ============= 14
+\item 答案：A。光纤猫的网线是接到无线路由器的WAN口上。
+
+%% ============= 15
+\item 答案：有线信号比无线信号更稳定；台式机的性能可能优于笔记本电脑。
+
+%% ============= 16
+\item 考查信息系统的组成，人工智能应用。
+	\begin{enumerate}[label=$(\arabic*)$]
+	\item 射频识别（RFID）， ④，⑤，电子标签存储图书信息，可被读写器识别。
+	\item 输入设备。
+	\item 输出设备。
+	\end{enumerate}
+
+%% ============= 17
+\item 答案如下：
+	\begin{enumerate}[label=$(\arabic*)$]
+	\item D。
+	\item B。
+	\item 答案：B。分支结构的程序请绘制数轴进行理解：选项A中$sy \ge 100$与$250 \le sy \le 400$有交集，当$sy=300$时，它只执行$sy \ge 100$成立的分支，即只亮1号灯。选项C：当$sy \ge 400$时亮了1号灯，当$250 \le sy \le 400$时亮了1、2号灯；当$sy < 250$时亮了1、2、3号灯，与题意不符。选项D：与A类似，第一个分支$sy \ge 100$范围太广了。
+	\end{enumerate}
+
+%% ============= 18
+\item 考查信息系统搭建相关知识：
+	\begin{enumerate}[label=$(\arabic*)$]
+	\item 用浏览器访问网站，必然有HTTP协议（因为URL都是http打头的（仅限学选考知识范围）），另外现有的HTTP协议都是基于TCP/IP协议的，因此这里可以选填两种协议：HTTP和TCP/IP。
+	\item 用浏览器访问必然是B/S架构，理由是它用的客户端软件是浏览器，不是专门定制的应用程序或APP。
+\begin{lstlisting}[numbers=left]
+# 导入Flask相关的库代码略
+@app.route("/")
+def index():
+    # 查询最近上传的传感器数据记录，存入列表a，代码略
+    return render_template("index.html", data=a)
+@app.route("/input", methods=["GET", "POST"])
+def add():
+    ip = request.remote_addr
+    tp = int(request.args.get("id"))
+    value = int(request.args.get("val"))
+    sj = time.strftime("%Y-%m-%d %H:%M", time.localtime(time.time()))
+    # 以下代码用于连接数据库并处理环境数据
+    conn = sqlite3.connect("mydata.db")
+    cur = conn.cursor()
+    sql = f"INSERT INTO jclog (type, value, upload_time, ip) VALUES ({tp}, {value}, '{sj}', '{ip}')"
+    cur.execute(sql)
+    conn.commit()
+    return redirect(url_for("index"))
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=5000)
+\end{lstlisting}
+	\item 智能终端的代码主要是读取传感器数据，向Web服务发送数据，执行服务器返回的控制执行器的命令。Flask模块编写的程序必然在Web服务上，选项A错误。第2行的路由与第3行的视图函数定义了首页的内容，访问URL为http://192.168.1.100:5000/，第6行的路由与第7行的视图函数定义了接收数据、处理数据、存储数据的过程。选项B的URL中缺少端口号。智能终端通过IOT模块连到Wi-Fi再向服务器发送数据，Wi-Fi信号一般需要路由器发射，因此选项C正确。
+	\end{enumerate}
+
+
+\end{enumerate}
+
+
+\newpage

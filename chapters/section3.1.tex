@@ -1,0 +1,86 @@
+\chapter{综合练习}\index{综合练习}
+\section{综合练习一}\index{综合练习一}
+
+\begin{enumerate}
+%% ============= 1
+\item 答案：B。
+
+%% ============= 2
+\item 答案：C。
+
+%% ============= 3
+\item 答案：A。
+
+%% ============= 4
+\item 答案：B。
+
+%% ============= 5
+\item 答案：A。
+
+%% ============= 6
+\item 答案：D。
+
+%% ============= 7
+\item 答案：D。
+
+%% ============= 8
+\item 答案：D。
+
+%% ============= 9
+\item 考查信息系统搭建的应用：
+	\begin{enumerate}[label=$(\arabic*)$]
+	\item 数据采集与传输，考查题目情景和数据的理解，Python文本文件操作相关应用。
+\setcounter{qnumber}{1}
+\begin{lstlisting}[numbers=left]
+f = open("pm_d.txt") 					# 打开文件
+def finds(c, st):						# 查找字符st在字符串c中的位置
+    for i in range(len(c)):
+        if `\clozeblank{2}`:
+            return i
+data = [];  sum = 0
+for line in f.readlines():			    # 按行读取文件
+    if "PM2.5" in line:
+        w = finds(line, " : ")
+        d = `\clozeblank{2}`
+        data = data + [d] 				# 将获取的 PM2.5数据保存到列表中
+        sum = sum + d 
+ave = - sum / len(data) 				# 计算PM2.5的平均值
+# 计算AQI, 代码略
+f.close()
+\end{lstlisting}
+		\begin{enumerate}[label=$(\alph*)$]
+		\item 第①题要注意的题目设问的是“PM2.5”的平均值，这并不是前3行数据，而是第1、4、7行数据的平均值。
+		\item 由第2行的注释，st是待查找字符，因此第4行程序\lstinline|c[i] == st|。
+		\item 第7行程序遍历了数据文件中的每行字符串，第8行表示这行包含了“PM2.5”字符串，第9行程序找到了字符“:”所在的位置，因此第10程序截取的数值位置应该从$w+1$开始，答案是\lstinline|int(line[w+1:])|。
+		\end{enumerate}	
+\setcounter{qnumber}{1}
+\begin{lstlisting}[numbers=left]
+from flask import Flask, render_template, request
+app = Flask(__name__)
+# 数据处理子程序上传的AQI数据，并存储到数据库data.db的路由（代码略）
+`\clozeblank{2}` 	  	 # 主页面路由命令
+def index():
+    db = sqlite3.connect("data.db")
+    # 游标变量cur连接等参数，代码略
+    sql = "SELECT * FROM pm_b WHERE id=4"
+    cur.execute(sql)         # 查询4号监测点AQI数据
+    data = cur.fetchall()
+    # 数据库执行和关闭，代码略
+    return data              # 将data数据传递给参数变量s用于显示在网页中
+if __name__ == "__main__":
+    app.run(`\clozeblank{2}`)
+\end{lstlisting}
+	\item 数据存储与呈现。考查Flask、sqlite3数据库操作。
+		\begin{enumerate}[label=$(\alph*)$]
+		\item 第4行程序定义路由地址，第5行定义相应的视图函数。主页的地址只需写“/”，答案是\lstinline|@app.route("/")|，除“/”地址外，其他都是固定格式，请记牢。
+		\item 第6行程序连接了数据库文件“data.db”，注意这不是数据表，数据表是数据库中的一张表格。由第8行SQL语句知，数据表名称是“pm\_b”，认识这个必须要认识数据库操作的四个操作语句“SELECT”、“INSERT INTO”、“DELETE FROM”、“CREATE TABLE”。第9行程序执行了sql语句后，第10行程序可以读取到pm\_b数据表中的所有数据。
+		\item 第14行，app.run()函数的格式是固定的，它一般有两个参数：host参数指明服务器地址，若省略则是IP地址“127.0.0.1”，若是“0.0.0.0”则表示服务器上当前生效的IP地址（这一般再架构图或题干中会已知）。另一个参数是port，表示端口号。注意指明host的值应该是IP地址，不需要http协议，更不需要冒号+端口号。所以答案是B。
+		\item 由第10行程序知，data变量保存了数据表中的数据，现在要将它传递给网页变量$s$，那么赋值格式应该是\lstinline|s = data|，因此答案是\lstinline|render_template("index.html", s=data)|，选D。
+		\end{enumerate}	
+	\end{enumerate}
+
+
+\end{enumerate}
+
+
+\newpage
